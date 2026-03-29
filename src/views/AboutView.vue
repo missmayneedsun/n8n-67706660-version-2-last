@@ -23,27 +23,33 @@
 
                         <!-- Form -->
                         <form @submit.prevent="submitForm">
-
-
                             <div class=" mb-3">
-                                <label class="form-label">รหัสนักศึกษา *</label>
-                                <input type="text" class="form-control" v-model="data.id" required>
+                                <label class="form-label">รหัสสินค้า*</label>
+                                <input type="text" class="form-control" v-model="data.code" required>
                             </div>
 
                             <div class=" mb-3">
-                                <label class="form-label">ชื่อ-นามสกุล *</label>
-                                <input type="text" class="form-control" v-model="data.fullname" required>
+                                <label class="form-label">ชื่อสินค้า *</label>
+                                <input type="text" class="form-control" v-model="data.name" required>
+                            </div>
+                        
+                            <div class=" mb-3">
+                                <label class="form-label">ราคา *</label>
+                                <input type="text" class="form-control" v-model="data.amount" required>
                             </div>
 
 
-                            <div class="mb-3">   
-                                <select class="form-select text-center" v-model="data.department" required>
-                                    <option value="" disabled>-- เลือกคณะ --</option>
-                                    <option value="บริหารธุรกิจ">บริหารธุรกิจ</option>
-                                    <option value="บัญชี">บัญชี</option>
-                                    <option value="เทคโนโลยีสารสนเท">เทคโนโลยีสารสนเทศ</option>
-                                </select>
+                            <div class=" mb-3">
+                                <label class="form-label">จำนวน *</label>
+                                <input type="text" class="form-control" v-model="data.price" required>
                             </div>
+
+                            <div class=" mb-3">
+                                <label class="form-label">อีเมล *</label>
+                                <input type="text" class="form-control" v-model="data.email" required>
+                            </div>
+
+                            
 
 
                             <button class="btn btn-primary w-100 fw-bold" :disabled="loading">

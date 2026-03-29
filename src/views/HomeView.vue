@@ -3,8 +3,8 @@
 
     <!-- Header -->
     <div class="text-center mb-4">
-      <h2 class="fw-bold text-primary">📋 ระบบแสดงรายชื่อผู้ลงทะเบียน</h2>
-      <p class="text-muted">ข้อมูลจาก n8n Webhook API</p>
+      <h2 class="fw-bold text-primary">📋 ระบบสินค้า</h2>
+      <p class="text-muted">ตารางสินค้า</p>
     </div>
 
     <!-- Card -->
@@ -30,18 +30,18 @@
           <table class="table table-hover align-middle text-center">
             <thead class="table-primary">
               <tr>
-                <th>#</th>
-                <th>รหัสนักศึกษา</th>
-                <th>ชื่อ-นามสกุล</th>
-                <th>แผนก</th>
+                <th>รหัสสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>จำนวน</th>
+                <th>ราคา</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in users" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>{{ item.id }}</td>
-                <td>{{ item.fullname }}</td>
-                <td>{{ item.department }}</td>
+                <td>{{ item.productid}}</td>
+                <td>{{ item.productname }}</td>
+                <td>{{ item.number }}</td>
+                <td>{{ item.price }}</td>
               </tr>
             </tbody>
           </table>
@@ -67,7 +67,7 @@ const loading = ref(false)
 const fetchData = async () => {
   loading.value = true
   try {
-    const response = await fetch('http://localhost:5678/webhook/c01cf594-a3d9-43b6-a051-68d30704b7aa')
+    const response = await fetch('http://localhost:5678/webhook/data')
     const data = await response.json()
     users.value = data
   } catch (error) {
