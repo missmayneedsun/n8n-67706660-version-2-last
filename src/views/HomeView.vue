@@ -30,18 +30,20 @@
           <table class="table table-hover align-middle text-center">
             <thead class="table-primary">
               <tr>
-                <th>รหัสสินค้า</th>
-                <th>ชื่อสินค้า</th>
-                <th>จำนวน</th>
-                <th>ราคา</th>
+                <th>ประทับเวลา</th>
+                <th>ชื่อ นามสกุล</th>
+                <th>แผนก</th>
+                <th>อุปกรณ์</th>
+                <th>จำนวนที่เบิก</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in users" :key="index">
-                <td>{{ item.productid}}</td>
-                <td>{{ item.productname }}</td>
-                <td>{{ item.number }}</td>
-                <td>{{ item.price }}</td>
+                <td>{{ item.Time}}</td>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.Department }}</td>
+                <td>{{ item.Tools }}</td>
+                <td>{{ item.amount }}</td>
               </tr>
             </tbody>
           </table>
