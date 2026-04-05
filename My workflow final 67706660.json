@@ -1,0 +1,278 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        608,
+        176
+      ],
+      "id": "39cfb53f-e4cf-48d2-b988-5ed96b13811c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w",
+          "mode": "list",
+          "cachedResultName": "ยืมอุปกรณ์",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1586490166,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w/edit#gid=1586490166"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -144
+      ],
+      "id": "222e9a72-6fd7-437e-b9a6-7170a63e9651",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "HArf7JgNXgN5r7ui",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        -144
+      ],
+      "id": "b25f1e60-79f4-478f-a20d-f3b03dc640af",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "sendTo": "missmayneedsun@gmail.com",
+        "subject": "ระบบยืมอุปกรณ์ อัตโนมัติ",
+        "message": "=ว/ด/ปี  {{ $json.Timestamp }}\nชื่อนามสกุล {{ $json['ชื่อ นามสกุล'] }}\nแผนก {{ $json['แผนก'] }}\nอุปกรณ์ {{ $json['อุปกรณ์'] }}\nจำนวนที่เบิก {{ $json['จำนวนที่เบิก'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -64,
+        -144
+      ],
+      "id": "2e3bea7c-94d9-4d1f-97c3-d183ffbc6827",
+      "name": "Send a message",
+      "webhookId": "06070d31-a1a3-49e5-8509-3d1a7d7e905c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "yTC0i751hcpwHpiE",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "data",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -496,
+        112
+      ],
+      "id": "e0b5d7ca-26b5-4ca1-8e69-7adca4191604",
+      "name": "Webhook",
+      "webhookId": "3427d4c3-7c93-479c-aed4-2983895ca7b9"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w",
+          "mode": "list",
+          "cachedResultName": "ยืมอุปกรณ์",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1586490166,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dLiUW4INUV4a-nvIATustY3FmwYJXjp0vljw3DK32_w/edit#gid=1586490166"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -288,
+        112
+      ],
+      "id": "46ee3a27-f244-4dde-844a-94bc9eee1930",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "KUCcWbHh0aEIox8F",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5b9d1e3-953b-4881-a6c8-14c970cd0e8f",
+              "name": "Time",
+              "value": "={{ $json.Timestamp }}",
+              "type": "string"
+            },
+            {
+              "id": "ad2886b3-442b-410a-a47f-9b359ba594a6",
+              "name": "Name",
+              "value": "={{ $json['ชื่อ นามสกุล'] }}",
+              "type": "string"
+            },
+            {
+              "id": "cd1c21b5-eec9-4398-aeb1-98e9547b92f8",
+              "name": "Department",
+              "value": "={{ $json['แผนก'] }}",
+              "type": "string"
+            },
+            {
+              "id": "ed5bf257-0884-4075-9d28-567d7859568e",
+              "name": "Tools",
+              "value": "={{ $json['อุปกรณ์'] }}",
+              "type": "string"
+            },
+            {
+              "id": "3ace2f09-6acb-4edc-9c08-d13fa4d21d6d",
+              "name": "amount",
+              "value": "={{ $json['จำนวนที่เบิก'] }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        112
+      ],
+      "id": "11a75621-253d-4872-b965-8d61b15504a2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        112,
+        112
+      ],
+      "id": "645d6661-51fc-4c3f-b252-75cf9dfc2a5e",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "63990245-b256-447b-b06e-9adc15d0cdd6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e31b5a31290800304e5f745f97a1e2b437ec412b6a367f9fce71215649e3a98a"
+  },
+  "id": "iJS5sygHk5Jm3aOv",
+  "tags": []
+}
